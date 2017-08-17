@@ -1,0 +1,5 @@
+portal/config.php
+db/
+*/_notes/*
+*/_notes
+db

@@ -116,6 +116,28 @@ $("title").html("AcadMan | Courses");</script>
                 break;
                 }
          });
+	function delete_file (id){
+		var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText=="1")
+            {
+                alert("Deleted Successfully!");
+            }
+			else if (this.responseText=="0")
+			{
+				alert("Already Deleted!");
+			}
+        }
+            if (this.readyState == 4 && this.status != 200){
+                alert("Seems like you are disconnected from network!");
+                return false;
+            }
+        };
+        xmlhttp.open("POST", "plugins/ajax.php", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("req=5&file="+id);
+	};
 </script>
 <?php
 get_footer();

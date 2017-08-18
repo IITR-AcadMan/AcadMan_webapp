@@ -42,4 +42,15 @@ if ($req=="4"){//update profile
 		else echo 0;}
 	else echo 0;
 }
+if ($req=="5"){//update profile
+    require_once(dirname(dirname(__FILE__)).'/config.php');
+	require_once(dirname(__FILE__).'/db.php');
+	forgetdb('contents','id',$_POST['file']);
+	$file = CONTENT.$_POST['file'];
+	if (file_exists($file)){
+		unlink($file);
+		echo 1;
+	}
+	else echo 0;
+}
 ?>

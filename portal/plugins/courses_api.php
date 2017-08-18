@@ -58,7 +58,7 @@ function get_file_card($id,$fn,$eid,$filename,$contentsize,$time,$comment){
 				$dt->setTimestamp($timestamp);
 				echo '<div class="well">';
 				if($eid==$enrlid){
-					echo '<div hidden class="dismiss" onclick="alert(\''.$id.'\');">
+					echo '<div hidden class="dismiss" onclick="delete_file(\''.$id.'\');">
 				<button type="button" class="close">&times;</button>
   				</div>';
 				}

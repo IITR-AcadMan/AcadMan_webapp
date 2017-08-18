@@ -4,7 +4,7 @@ require_once(dirname(__FILE__).'/db.php');
 function gen_tok($username,$password)//generate token
 {
 	if(!isset($_COOKIE["tid"])){
-	$pwd = askdb("pwd","users",array("id"=>$username));
+	$pwd = askdb(array("pwd"),"users",array("id"=>$username));
 	if ($pwd==$password&&$password!=""){
 		$tid=time();
 		$token=hash('sha256',$tid.$pwd);

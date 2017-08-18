@@ -116,17 +116,21 @@ $("title").html("AcadMan | Courses");</script>
                 break;
                 }
          });
-	function delete_file (id){
+function delete_file (id){
 		var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText=="1")
+            if (this.responseText=="0")
             {
                 alert("Deleted Successfully!");
             }
-			else if (this.responseText=="0")
+			else if (this.responseText=="1")
 			{
 				alert("Already Deleted!");
+			}
+			else if (this.responseText=="2")
+			{
+				alert("Access Denied!");
 			}
         }
             if (this.readyState == 4 && this.status != 200){

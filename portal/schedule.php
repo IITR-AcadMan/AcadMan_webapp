@@ -14,9 +14,12 @@ require_once( 'plugins/schedule_api.php' );
 	$( "title" ).html( "AcadMan | Schedule" );
 </script>
 <style>
-	.T{background-color: aqua;}
-	.L{background-color: blueviolet;}
+	.L{background-color: aqua;}
+	.T{background-color: blueviolet;}
 	.P{background-color: cadetblue;}
+	.LD{background-color: grey;}
+	.TD{background-color: grey;}
+	.PD{background-color: grey;}
 </style>
 <div class="row">
 	<div class="col-sm-1"></div>
@@ -35,9 +38,9 @@ require_once( 'plugins/schedule_api.php' );
 			<a id="ds" href="?sch=ds" class="list-group-item">Default Schedule</a>
 		</div>
 		<div>
-			<span style="color: aqua;" class="glyphicon glyphicon-stop"></span>&nbsp;<strong>Lectures</strong><br/><br/>
-			<span style="color: blueviolet;" class="glyphicon glyphicon-stop"></span>&nbsp;<strong>Tutorials</strong><br/><br/>
-			<span style="color: cadetblue;" class="glyphicon glyphicon-stop"></span>&nbsp;<strong>Practicals</strong><br/><br/>
+			<span onMouseOver="show_type('L');" onMouseOut="hide_type('L');"><span style="color: aqua;" class="glyphicon glyphicon-stop"></span>&nbsp;<strong>Lectures</strong><br/><br/></span>
+			<span onMouseOver="show_type('T');" onMouseOut="hide_type('T');"><span style="color: blueviolet;" class="glyphicon glyphicon-stop"></span>&nbsp;<strong>Tutorials</strong><br/><br/></span>
+			<span onMouseOver="show_type('P');" onMouseOut="hide_type('P');"><span style="color: cadetblue;" class="glyphicon glyphicon-stop"></span>&nbsp;<strong>Practicals</strong><br/><br/></span>
 		</div>
 	</div>
 	<div class="col-sm-8">
@@ -147,6 +150,50 @@ require_once( 'plugins/schedule_api.php' );
                 break;
                 }
 	});
+function show_type(type){
+	switch (type){
+            case 'L':
+                $(".T").addClass("TD");
+                $(".P").addClass("PD");
+				$(".TD").removeClass("T");
+                $(".PD").removeClass("P");
+                break;
+			case 'T':
+                $(".L").addClass("LD");
+                $(".P").addClass("PD");
+				$(".LD").removeClass("L");
+                $(".PD").removeClass("P");
+                break;
+			case 'P':
+                $(".L").addClass("LD");
+                $(".T").addClass("TD");
+				$(".LD").removeClass("L");
+                $(".TD").removeClass("T");
+                break;
+                }
+};
+function hide_type(type){
+	switch (type){
+            case 'L':
+				$(".TD").addClass("T");
+                $(".PD").addClass("P");
+                $(".T").removeClass("TD");
+                $(".P").removeClass("PD");
+                break;
+			case 'T':
+				$(".LD").addClass("L");
+                $(".PD").addClass("P");
+                $(".L").removeClass("LD");
+                $(".P").removeClass("PD");
+                break;
+			case 'P':
+				$(".LD").addClass("L");
+                $(".TD").addClass("T");
+                $(".L").removeClass("LD");
+                $(".T").removeClass("TD");
+                break;
+                }
+};
 </script>
 <?php
 get_footer();

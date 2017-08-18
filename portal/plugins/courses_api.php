@@ -40,13 +40,13 @@ function get_card_meta($course){
 		global $conn;
 		$sql="SELECT contents.id as id,contents.eid as eid,contents.file_name as file_name,contents.size as size,contents.comment as comment,users.fn as fn FROM contents LEFT JOIN users ON contents.eid = users.enrlid WHERE course='".$course."' ORDER BY contents.id DESC";
 		$row = $conn->query($sql);
+			dbdisconn();
 		$response=array();
 		while($data=$row->fetch_assoc())
 		{
 			if(has_course($course)){	array_push($response,array('id'=>$data['id'],'eid'=>$data['eid'],'filename'=>$data['file_name'],'comment'=>$data['comment'],'size'=>$data['size'],'fn'=>$data['fn']));
 									}
 		}
-		dbdisconn();
 		return $response;
 		}
 function get_file_card($id,$fn,$eid,$filename,$contentsize,$time,$comment){

@@ -9,9 +9,10 @@ function get_schedule($sch){
 		$eid = askdb( array("eid"), "sessions", array("tid"=>$tid));
 		$batch = askdb( array("batch"), "users", array("enrlid"=>$eid));
 	dbconn();
-		global $conn,$schedule;
+		global $conn;
 		$sql="SELECT course,slot,type FROM ".$sch." WHERE batch='".$batch."'";
 		$row = $conn->query($sql);
+		dbdisconn();
 		while($data=$row->fetch_assoc())
 		{
 			if(has_course($data['course'])){
@@ -21,7 +22,6 @@ function get_schedule($sch){
 				if ($data['type']==3) $type[$data['slot']]='P';
 											}
 		}
-	dbdisconn();
 		$response=array("course"=>$course,"type"=>$type);
 		return $response;
 }

@@ -49,19 +49,32 @@ function telldb($table,$format,$data)//store data
 	};
 function askdb($attribute,$table,$params)//fetch data
 {
-	dbconn();
-	global $conn;
+	include_once('csv.php');
+	$sql;
+	if(is_array($attribute)){
+		$sql="SELECT ".generate_csv($attribute)." FROM ".$table." WHERE ";
+	}
+	else{
+		$sql="SELECT ".$attribute." FROM ".$table." WHERE ";
+	}
 	$length=count($params);
-	$sql="SELECT ".$attribute." FROM ".$table." WHERE ";
 	foreach ($params as $key => $value){
 		$sql=$sql.$key."='".$value."'";
 		if ($length!=1){$sql=$sql." AND ";}
 		$length--;
 	}
+	dbconn();
+	global $conn;
 	$row = $conn->query($sql);
 	$data = $row->fetch_assoc();
-	return $data[$attribute];
 	dbdisconn();
+	if(is_array($attribute)){
+		if(count($attribute)==1){return $data[$attribute[0]];}
+		else {return $data;}
+							}
+	else {
+		return $data[$attribute];
+		}
 	};
 function forgetdb($table,$pkey,$pkeyvalue)//delete data
 {

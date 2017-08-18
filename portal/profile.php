@@ -7,15 +7,15 @@ $tid = $_COOKIE[ "tid" ];
 $eid;
 $access=0;
 if (isset($_GET['id'])){$eid=$_GET['id'];}
-else {$eid = askdb( "eid", "sessions", array("tid"=> $tid)); $access=1;}
-$id = askdb( "id", "users", array("enrlid"=> $eid) );
-$fn = askdb( "fn", "users", array("enrlid"=> $eid) );
-$ln = askdb( "ln", "users", array("enrlid"=> $eid));
-$dob = askdb( "dob", "users", array("enrlid"=> $eid));
-$ph = askdb( "ph", "users", array("enrlid"=> $eid));
-$email = askdb( "email", "users", array("enrlid"=> $eid));
-$q = askdb( "q", "users", array("enrlid"=> askdb( "eid", "sessions", array("tid"=> $tid))));
-$a = askdb( "a", "users", array("enrlid"=> askdb( "eid", "sessions", array("tid"=> $tid))));
+else {$eid = askdb( array("eid"), "sessions", array("tid"=> $tid)); $access=1;}
+$id = askdb( array("id"), "users", array("enrlid"=> $eid) );
+$fn = askdb( array("fn"), "users", array("enrlid"=> $eid) );
+$ln = askdb( array("ln"), "users", array("enrlid"=> $eid));
+$dob = askdb( array("dob"), "users", array("enrlid"=> $eid));
+$ph = askdb( array("ph"), "users", array("enrlid"=> $eid));
+$email = askdb( array("email"), "users", array("enrlid"=> $eid));
+$q = askdb( array("q"), "users", array("enrlid"=> askdb( array("eid"), "sessions", array("tid"=> $tid))));
+$a = askdb( array("a"), "users", array("enrlid"=> askdb( array("eid"), "sessions", array("tid"=> $tid))));
 if($access==0){
 	echo '<style>
 	.tobehidden{

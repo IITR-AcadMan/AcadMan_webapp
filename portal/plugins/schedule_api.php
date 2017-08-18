@@ -6,8 +6,8 @@ function get_schedule($sch){
 		$tid=$_COOKIE["tid"];
 		$course=array();
 		$type=array();
-		$eid = askdb( "eid", "sessions", array("tid"=>$tid));
-		$batch = askdb( "batch", "users", array("enrlid"=>$eid));
+		$eid = askdb( array("eid"), "sessions", array("tid"=>$tid));
+		$batch = askdb( array("batch"), "users", array("enrlid"=>$eid));
 	dbconn();
 		global $conn,$schedule;
 		$sql="SELECT course,slot,type FROM ".$sch." WHERE batch='".$batch."'";

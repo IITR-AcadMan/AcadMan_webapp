@@ -35,7 +35,7 @@ if ($req=="4"){//update profile
 		if ($key=="id"){$value=strtoupper($value);}
 		if (chk_tok()){
 		$tid = $_COOKIE[ "tid" ];
-		$eid=askdb( "eid", "sessions", array("tid"=> $tid) );
+		$eid=askdb( array("eid"), "sessions", array("tid"=> $tid) );
 		changedb("users",array($key=>$value),array("enrlid"=>$eid));
 		echo 1;
 	}

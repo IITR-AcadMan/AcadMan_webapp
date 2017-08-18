@@ -16,8 +16,8 @@ function get_courses(){
 	require_once(dirname(__FILE__).'/db.php');
 	require_once(dirname(__FILE__).'/csv.php');
 	if (isset($_COOKIE["tid"])){$tid=$_COOKIE["tid"];}else $tid=$_POST["tid"];
-	$eid = askdb("eid","sessions",array("tid"=>$tid));
-	$crs = parse_csv(askdb("crsid","enrolledfor",array("enrlid"=>$eid)));
+	$eid = askdb(array("eid"),"sessions",array("tid"=>$tid));
+	$crs = parse_csv(askdb(array("crsid"),"enrolledfor",array("enrlid"=>$eid)));
 	return $crs;
 }
 function has_course($course){
@@ -25,8 +25,8 @@ function has_course($course){
 	require_once(dirname(__FILE__).'/csv.php');
 	$tid="";
 	if (isset($_COOKIE['tid'])) $tid=$_COOKIE["tid"]; else $tid=$_POST['tid'];
-	$eid = askdb("eid","sessions",array("tid"=>$tid));
-	$crs = parse_csv(askdb("crsid","enrolledfor",array("enrlid"=>$eid)));
+	$eid = askdb(array("eid"),"sessions",array("tid"=>$tid));
+	$crs = parse_csv(askdb(array("crsid"),"enrolledfor",array("enrlid"=>$eid)));
 	$bool = 0;
 	foreach($crs as $verify){
 		if ($course==$verify){$bool=1;}
@@ -51,7 +51,7 @@ function get_card_meta($course){
 		}
 function get_file_card($id,$fn,$eid,$filename,$contentsize,$time,$comment){
 	require_once(dirname(__FILE__).'/db.php');
-	$enrlid=askdb('eid','sessions',array('tid'=>$_COOKIE['tid']));
+	$enrlid=askdb(array('eid'),'sessions',array('tid'=>$_COOKIE['tid']));
 				$tz = 'Asia/Kolkata';
 				$timestamp = $time;
 				$dt = new DateTime("now", new DateTimeZone($tz));

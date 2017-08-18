@@ -18,7 +18,7 @@ if(isset($_FILES['file'])){
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target)){
 			$comment=$_POST['comment'];
 			$filename=basename($_FILES["file"]["name"]);
-			$eid=askdb('eid','sessions',array('tid'=>$_COOKIE['tid']));
+			$eid=askdb(array("eid"),'sessions',array('tid'=>$_COOKIE['tid']));
 			$size=$_FILES["file"]["size"];
 			telldb('contents',array('id','eid','file_name','size','course','comment'),array($id,$eid,$filename,$size,$crs,$comment));
 			$msg=1;

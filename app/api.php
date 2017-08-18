@@ -131,29 +131,35 @@ else{$response=array("err" => 206);}
     	require_once(ABS_PATH.'/plugins/courses_api.php');
 		require_once(ABS_PATH.'/plugins/session.php');
 		require_once(ABS_PATH.'/plugins/db.php');
-    	if (chk_tok_post())
-				{$msg=0;
-				if(isset($_FILES['file'])){
-				$id=time();
-				$error=0;
-				$target=CONTENT.$id;
-				if (file_exists($target)){$msg=3;$error=1;}
-				if($error==0){
-				if (move_uploaded_file($_FILES["file"]["tmp_name"], $target)){
-				$msg=1;
-				}
-				else{$msg=4;}
-				}
-				}
-				 telldb('contents',array('id'),array($id));
-				 if($msg==0){$response=array("err" => 0);}
+		if (chk_tok_post()){
+		$crs=$_POST['course'];
+		$msg=0;
+		if(isset($_FILES['file'])){
+		$id=time();
+		$error=0;
+		$target=CONTENT.$id;
+		//if ($_FILES["file"]["size"] > 20000000){$msg=2;$error=1;}
+		if (file_exists($target)){$msg=3;$error=1;}
+		if($error==0){
+		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target)){
+			$comment=$_POST['comment'];
+			$filename=basename($_FILES["file"]["name"]);
+			$eid=askdb('eid','sessions',array('tid'=>$_POST['tid']));
+			$size=$_FILES["file"]["size"];
+			telldb('contents',array('id','eid','file_name','size','course','comment'),array($id,$eid,$filename,$size,$crs,$comment));
+			$msg=1;
+		}
+		else{$msg=4;}
+	}
+}
+			if($msg==0){$response=array("err" => 0);}
 				 if($msg==1){$response=array("err" => 200);}
 				 if($msg==2){$response=array("err" => 2);}
 				 if($msg==3){$response=array("err" => 3);}
 				 if($msg==4){$response=array("err" => 4);}
-				}
-		else $response=array("err" => 403);
-    }
+		}
+		else {$response=array("err" => 403);}
+	}
 	if ($req=='11')//get content
     {
     	require_once(ABS_PATH.'/plugins/courses_api.php');

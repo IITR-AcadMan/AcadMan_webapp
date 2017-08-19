@@ -44,7 +44,7 @@ header('Location: '.DOMAIN.PATH.'/login.php?msg=3');
         </a>
         <ul class="dropdown-menu">
           <li><a href="<?php echo DOMAIN.PATH; ?>/profile.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Prefrences</a></li>
+          <li><a href="<?php echo DOMAIN.PATH; ?>/prefrences.php"><span class="glyphicon glyphicon-cog"></span> Prefrences</a></li>
           <li><a href="<?php echo DOMAIN.PATH; ?>/logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
           </li>

@@ -226,6 +226,24 @@ else{$response=array("err" => 206);}
 						}
 				else $response=array("err" => 403);
     }
+	if ($req=='14')//delete content
+    {
+    	require_once(ABS_PATH.'/plugins/db.php');
+		require_once(ABS_PATH.'/plugins/session.php');
+    	if (chk_tok_post())
+				{
+	if (askdb(array('eid'),'contents',array('id'=>$_POST['id']))==askdb(array('eid'),'sessions',array('tid'=>$_COOKIE['tid'])))
+	{forgetdb('contents','id',$_POST['id']);
+	$file = CONTENT.$_POST['id'];
+	if (file_exists($file)){
+		unlink($file);
+		$response=array("err" => 200);
+	}
+	else $response=array("err" => 200);}
+	else $response=array("err" => 403);
+				}
+				else $response=array("err" => 403);
+    }
 }
 $JSON = json_encode($response);
 echo $JSON;

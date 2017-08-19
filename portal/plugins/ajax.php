@@ -45,7 +45,6 @@ if ($req=="4"){//update profile
 if ($req=="5"){//update profile
     require_once(dirname(dirname(__FILE__)).'/config.php');
 	require_once(dirname(__FILE__).'/db.php');
-	require_once(dirname(__FILE__).'/courses_api.php');
 	if (askdb(array('eid'),'contents',array('id'=>$_POST['file']))==askdb(array('eid'),'sessions',array('tid'=>$_COOKIE['tid'])))
 	{forgetdb('contents','id',$_POST['file']);
 	$file = CONTENT.$_POST['file'];

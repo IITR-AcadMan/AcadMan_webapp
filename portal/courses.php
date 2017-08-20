@@ -83,6 +83,7 @@ $("title").html("AcadMan | Courses");</script>
 	</div>
 	<div class="col-sm-1"></div>
 </div>
+<script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
 <script>
 	$(document).ready(function(){
         switch ('<?php echo $crs; ?>'){
@@ -117,31 +118,24 @@ $("title").html("AcadMan | Courses");</script>
                 }
          });
 function delete_file (id){
-		var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText=="0")
-            {
-                alert("Deleted Successfully!");
-            }
-			else if (this.responseText=="1")
-			{
-				alert("Already Deleted!");
-			}
-			else if (this.responseText=="2")
-			{
-				alert("Access Denied!");
-			}
-        }
-            if (this.readyState == 4 && this.status != 200){
-                alert("Seems like you are disconnected from network!");
-                return false;
-            }
-        };
-        xmlhttp.open("POST", "plugins/ajax.php", true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("req=5&file="+id);
+	send_ajax('plugins/ajax.php','req=5&file='+id,'ajax_callback1');
 	};
+function ajax_callback1(text,status,state){
+	if(status==200&&state==4){
+		if(text=="0"){
+			alert("Deleted Successfully!");				 
+					 }
+		if(text=="1"){
+			alert("Already Deleted!");			 
+					 }
+		if(text=="2"){
+			alert("Access Denied!");			 
+					 }
+	}
+	if(status!=200&&state==4){
+		alert("Seems like you are disconnected from network!");
+	}
+		};
 </script>
 <?php
 get_footer();

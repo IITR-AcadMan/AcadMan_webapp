@@ -233,7 +233,7 @@ else{$response=array("err" => 206);}
     	if (chk_tok_post())
 				{
 	if (askdb(array('eid'),'contents',array('id'=>$_POST['id']))==askdb(array('eid'),'sessions',array('tid'=>$_COOKIE['tid'])))
-	{forgetdb('contents','id',$_POST['id']);
+	{forgetdb('contents',array('id'=>$_POST['id']));
 	$file = CONTENT.$_POST['id'];
 	if (file_exists($file)){
 		unlink($file);

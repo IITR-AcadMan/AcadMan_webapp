@@ -122,38 +122,35 @@ if($access==0){
                 <div class="col-sm-4"></div>
             </div>
         </div>
-<script>function edit(data){
+<script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
+<script>
+function edit(data){
 		$("#input").val($("#"+data).val());
 		$("#data").val(data);
 		$("#update").click();
 	}
-	function submit(){
-		var input=$("#input").val();
-		var data=$("#data").val();
-		var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText=="1")
-            {
-				$("#"+data).val(input);
-                $("#submit").click();
-                return;
-            }
-            else if (this.responseText=="0")
-            {
-                alert("Sorry! Unable to update. Try again later.");
-                return false;
-            }
-        }
-            if (this.readyState == 4 && this.status != 200){
-                alert("Seems like you are disconnected from network!");
-                return false;
-            }
-        };
-        xmlhttp.open("POST", "<?php echo DOMAIN.PATH."/plugins/ajax.php"; ?>", true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("req=4&key="+data+"&value="+input);
+function submit(){
+	input=$("#input").val();
+	data=$("#data").val();
+	send_ajax('<?php echo DOMAIN.PATH."/plugins/ajax.php"; ?>',"req=4&key="+data+"&value="+input,'ajax_callback1');
+	};
+function ajax_callback1(text,status,state){
+	if(status==200&&state==4){
+		if(text=="1"){
+			$("#"+data).val(input);
+            $("#submit").click();
+            return;
+		}
+		if(text=="0"){
+			alert("Sorry! Unable to update. Try again later.");
+            return false;
+		}
 	}
+	if(status!=200&&state==4){
+		alert("Seems like you are disconnected from network!");
+        return false;
+	}
+		};
 	function toggle_reveal(){
 		if($('#eye').hasClass('glyphicon-eye-close')){
 			$('#eye').removeClass('glyphicon-eye-close');

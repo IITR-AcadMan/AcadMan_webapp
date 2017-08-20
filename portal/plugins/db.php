@@ -95,11 +95,17 @@ function askdb_ljoin($attribute,$table,$params)//fetch data
 		if(count($attribute)==1){return $data[$attribute[0]];}
 		else {return $data;}
 	};
-function forgetdb($table,$pkey,$pkeyvalue)//delete data
+function forgetdb($table,$params)//delete data
 {
 	dbconn();
 	global $conn;
-	$sql="DELETE FROM ".$table." WHERE ".$pkey."='".$pkeyvalue."'";
+	$sql="DELETE FROM ".$table." WHERE ";
+	$length=count($params);
+	foreach ($params as $key => $value){
+		$sql=$sql.$key."='".$value."'";
+		if ($length!=1){$sql=$sql." AND ";}
+		$length--;
+	}
 	$row = $conn->query($sql);
 	dbdisconn();
 	};

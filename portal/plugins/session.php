@@ -25,7 +25,7 @@ function des_tok()//destroy token
 {
 	$tid="";
 	if (isset($_COOKIE['tid'])){$tid=$_COOKIE['tid'];} else {$tid=$_POST['tid'];}
-	forgetdb("sessions","tid",$tid);
+	forgetdb("sessions",array("tid"=>$tid));
 	if(isset($_COOKIE['tid'])){setcookie('tid', '', time()-60*60*24*365, "/");}
 	if(isset($_COOKIE['token'])){setcookie('token', '', time()-60*60*24*365, "/");}
 }

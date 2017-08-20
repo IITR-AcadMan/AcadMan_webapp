@@ -1,5 +1,7 @@
 portal/config.php
 db/
 db
+*/_notes/*
+*/_notes
 portal/content
 portal/content/*

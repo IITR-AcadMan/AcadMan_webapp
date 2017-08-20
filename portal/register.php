@@ -145,6 +145,7 @@ header('Location: '.KB.'/welcome.php');}
     text-align: left;
     }</style>
 <script src="js/hash.js"></script>
+<script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
 <script>
 function getCookie(cname) {
     var name = cname + "=";
@@ -176,27 +177,26 @@ function chkid(id){
         $("#idicon").removeClass("glyphicon-remove");
         return;
     } else {
+		send_ajax('plugins/ajax.php',"req=1&id="+id,'ajax_callback1');
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText=="1")
-            {$("#id").removeClass("has-error");
-            $("#idicon").removeClass("glyphicon-remove");
-             $("#id").addClass("has-success");
-             $("#idicon").addClass("glyphicon-ok");}
-            else if(this.responseText=="0")
-            {$("#id").removeClass("has-success");
+    }
+};
+function ajax_callback1(text,status,state){
+	if(status==200&&state==4){
+		if(text=="0"){
+			$("#id").removeClass("has-success");
             $("#idicon").removeClass("glyphicon-ok");
             $("#id").addClass("has-error");
             $("#idicon").addClass("glyphicon-remove");
-            }
-        }
-        };
-        xmlhttp.open("POST", "plugins/ajax.php", true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("req=1&id="+id);
-    }
-};
+		}
+		if(text=="1"){
+			$("#id").removeClass("has-error");
+            $("#idicon").removeClass("glyphicon-remove");
+            $("#id").addClass("has-success");
+            $("#idicon").addClass("glyphicon-ok");
+		}
+	}
+		};
 function chkpwd(password){
     if (password.length == 0) {
         $("#pwd").removeClass("has-success");

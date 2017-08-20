@@ -76,6 +76,25 @@ function askdb($attribute,$table,$params)//fetch data
 		return $data[$attribute];
 		}
 	};
+function askdb_ljoin($attribute,$table,$params)//fetch data
+{
+	include_once('csv.php');
+	$sql="SELECT contents.id as id,contents.eid as eid,contents.file_name as file_name,contents.size as size,contents.comment as comment,users.fn as fn FROM contents LEFT JOIN users ON contents.eid = users.enrlid WHERE contents.course='".$course."' ORDER BY contents.id DESC";
+		$sql="SELECT ".generate_csv($attribute)." FROM ".$table." WHERE ";
+	$length=count($params);
+	foreach ($params as $key => $value){
+		$sql=$sql.$key."='".$value."'";
+		if ($length!=1){$sql=$sql." AND ";}
+		$length--;
+	}
+	dbconn();
+	global $conn;
+	$row = $conn->query($sql);
+	$data = $row->fetch_assoc();
+	dbdisconn();
+		if(count($attribute)==1){return $data[$attribute[0]];}
+		else {return $data;}
+	};
 function forgetdb($table,$pkey,$pkeyvalue)//delete data
 {
 	dbconn();

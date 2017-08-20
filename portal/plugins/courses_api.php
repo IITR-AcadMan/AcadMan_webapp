@@ -38,7 +38,7 @@ function get_card_meta($course){
 		require_once(dirname(__FILE__).'/db.php');
 		dbconn();
 		global $conn;
-		$sql="SELECT contents.id as id,contents.eid as eid,contents.file_name as file_name,contents.size as size,contents.comment as comment,users.fn as fn FROM contents LEFT JOIN users ON contents.eid = users.enrlid WHERE course='".$course."' ORDER BY contents.id DESC";
+		$sql="SELECT contents.id as id,contents.eid as eid,contents.file_name as file_name,contents.size as size,contents.comment as comment,users.fn as fn FROM contents LEFT JOIN users ON contents.eid = users.enrlid WHERE contents.course='".$course."' ORDER BY contents.id DESC";
 		$row = $conn->query($sql);
 			dbdisconn();
 		$response=array();

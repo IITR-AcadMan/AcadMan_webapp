@@ -55,4 +55,19 @@ if ($req=="5"){//update profile
 	else echo 1;}
 	else echo 2;
 }
+if ($req=="6"){//change password
+	require_once(dirname(__FILE__).'/db.php');
+	$eid=askdb(array('eid'),'sessions',array('tid'=>$_COOKIE['tid']));
+	$pwd=askdb(array('pwd'),'users',array('enrlid'=>$eid));
+	if ($pwd==hash('sha256',$_POST['pwd']))
+	{
+		changedb('users',array(pwd=>hash('sha256',$_POST['newpwd'])),array('enrlid'=>$eid));
+		echo 1;
+	}
+	else echo 0;
+}
+if ($req=="6"){//logout all other
+	require_once(dirname(__FILE__).'/db.php');
+	$eid=askdb(array('eid'),'sessions',array('tid'=>$_COOKIE['tid']));
+}
 ?>

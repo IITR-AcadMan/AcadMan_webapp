@@ -63,14 +63,20 @@ get_header();
         </h4>
       </div>
       <div id="course" class="panel-collapse collapse">
-        <div class="panel-body">
-        <table>
+        <div align="center" class="panel-body">
         Currently enrolled for:
+        <table id="displaycourses">
         <?php foreach(get_courses() as $crs)
 				{echo '<tr><td>'.$crs.'</tr></td>';}
 		?>
         </table>
-        Contact Admin to change.
+        <br/>
+        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+                            <input class="form-control" name="courses" id="courses" type="text" placeholder="Enter courses seperated by comma.">
+                        	</div>
+                        <br>
+                        <input onClick="register_course($('#courses').val());" class="btn btn-primary" id="register" type="submit" value="Register">
         </div>
       </div>
     </div> 
@@ -114,11 +120,40 @@ function ajax_callback1(text,status,state){
 		$("#submit").removeAttr("disabled");
 	}
 		};
-function destroy_sessions(){
-				$("#logoutall").attr("value","Logging Out...");
-                document.getElementById("logoutall").disabled = "true";	send_ajax('plugins/ajax.php','req=7','ajax_callback2');
+function register_course(course){
+		if(course==""){generate_message('msgdiv','warning',"Enter atleast one course!",'msgid','','clear');}
+		else{
+				$("#register").attr("value","Registering...");
+                document.getElementById("register").disabled = "true";	send_ajax('plugins/ajax.php','req=9&course='+course,'ajax_callback2');
+		}
 	};
 function ajax_callback2(text,status,state){
+	if(status==200&&state==4){
+		if(text=="0"){generate_message('msgdiv','danger','Session Timed out!','msgid','','clear');}
+		else {
+			var csvcourse=$("#courses").val();
+			var arraycourse = csvcourse.split(",");
+			$("#displaycourses").html('');
+			arraycourse.forEach(displayer);
+			generate_message('msgdiv','success','Registered Successfully!','msgid','','clear');
+		}
+	}
+	if(status!=200&&state==4){
+		alert('Oops! There is a problem communicating with our servers.');
+	}
+	if(state==4){
+		$("#register").attr("value","Register");
+		$("#register").removeAttr("disabled");
+	}
+		};
+function displayer(item, index) {
+    $("#displaycourses").html($("#displaycourses").html() + '<tr><td>'+item+'</tr></td>'); 
+}
+function destroy_sessions(){
+				$("#logoutall").attr("value","Logging Out...");
+                document.getElementById("logoutall").disabled = "true";	send_ajax('plugins/ajax.php','req=7','ajax_callback3');
+	};
+function ajax_callback3(text,status,state){
 	if(status==200&&state==4){
 		if(text=="1"){
 			generate_message('msgdiv','success','Logged out Successfully!','msgid','','clear');

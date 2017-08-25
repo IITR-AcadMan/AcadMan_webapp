@@ -16,10 +16,10 @@ if(isset($_POST['reqid']))
 		$eid = askdb("enrlid","users",array("id"=>$id));
 		$tokentodb=array($tid, $token, $eid);
 		telldb("sessions",array("tid","token","eid"),$tokentodb);
-		$response=array("tid" => $tid,"token" => $token,"err" => 200);
+		$response=array("tid" => $tid,"token" => $token,"eid"=>$eid,"err" => 200);
         }
         else{
-        $response=array("tid" => "","token" => "","eid"=>$eid,"err" => 403);
+        $response=array("tid" => "","token" => "","eid"=>"","err" => 403);
         }
     }
      if ($req=='2')//logout
@@ -32,8 +32,8 @@ if(isset($_POST['reqid']))
     {
     require_once(ABS_PATH.'/plugins/db.php');
     require_once(ABS_PATH.'/plugins/otp.php');
-    if (chk_otp($_POST['ph'],$_POST['otp'],$_POST['type'])){
-   rem_otp($_POST['ph'],$_POST['type']);
+    if (chk_otp($_POST['ph'],$_POST['otp'],"1")){
+   rem_otp($_POST['ph'],"1");
     $register=array($_POST['enrlid'],strtoupper($_POST['id']),$_POST['pwd'],$_POST['fn'],$_POST['ln'],$_POST['dob'],$_POST['ph'],$_POST['email'],$_POST['q'],$_POST['a']);
 telldb("users",array('enrlid','id','pwd','fn','ln','dob','ph','email','q','a'),$register);
 	$response=array("err" => 200);

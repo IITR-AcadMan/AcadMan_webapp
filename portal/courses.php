@@ -14,6 +14,7 @@ if(isset($_FILES['file'])){
 	$target=CONTENT.$id;
 	//if ($_FILES["file"]["size"] > 20000000){$msg=2;$error=1;}
 	if (file_exists($target)){$msg=3;$error=1;}
+	if (!has_course($crs)){$msg=4;$error=1;}
 	if($error==0){
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target)){
 			$comment=$_POST['comment'];

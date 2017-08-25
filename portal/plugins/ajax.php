@@ -93,4 +93,16 @@ if ($req=="8"){//set schedule
 		}
 		else echo 0;
 }
+if ($req=="9"){//register course
+	require_once(dirname(__FILE__).'/db.php');
+	require_once(dirname(__FILE__).'/session.php');
+		if (chk_tok())
+		{
+			$tid=$_COOKIE["tid"];
+			$course=strtoupper($_POST["course"]);
+			$eid = askdb( "eid", "sessions", array("tid"=>$tid));	changedb("enrolledfor",array("crsid"=>$course),array("enrlid"=>$eid));
+		    echo 1;
+		}
+		else echo 0;
+}
 ?>

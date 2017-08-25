@@ -19,7 +19,7 @@ if(isset($_POST['reqid']))
 		$response=array("tid" => $tid,"token" => $token,"err" => 200);
         }
         else{
-        $response=array("tid" => "","token" => "","err" => 403);
+        $response=array("tid" => "","token" => "","eid"=>$eid,"err" => 403);
         }
     }
      if ($req=='2')//logout
@@ -232,7 +232,7 @@ else{$response=array("err" => 206);}
 		require_once(ABS_PATH.'/plugins/session.php');
     	if (chk_tok_post())
 				{
-	if (askdb(array('eid'),'contents',array('id'=>$_POST['id']))==askdb(array('eid'),'sessions',array('tid'=>$_COOKIE['tid'])))
+	if (askdb(array('eid'),'contents',array('id'=>$_POST['id']))==askdb(array('eid'),'sessions',array('tid'=>$_POST['tid'])))
 	{forgetdb('contents',array('id'=>$_POST['id']));
 	$file = CONTENT.$_POST['id'];
 	if (file_exists($file)){

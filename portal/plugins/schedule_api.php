@@ -20,6 +20,8 @@ function get_schedule($sch){
 				if ($data['type']==1) $type[$data['slot']]='T';
 				if ($data['type']==2) $type[$data['slot']]='L';
 				if ($data['type']==3) $type[$data['slot']]='P';
+				if ($data['type']==0) $type[$data['slot']]='';
+				if ($data['type']==4) $type[$data['slot']]='C';
 											}
 		}
 		$response=array("course"=>$course,"type"=>$type);

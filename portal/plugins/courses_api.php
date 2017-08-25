@@ -31,6 +31,7 @@ function has_course($course){
 	foreach($crs as $verify){
 		if ($course==$verify){$bool=1;}
 	}
+	if ($course=="CANCELLED"||$course==""){$bool=1;}
 	return $bool;
 }
 

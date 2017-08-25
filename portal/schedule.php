@@ -18,6 +18,7 @@ require_once(dirname(__FILE__).'/plugins/courses_api.php');
 	.L{background-color: aqua;}
 	.T{background-color: blueviolet;}
 	.P{background-color: cadetblue;}
+	.C{background-color: red;}
 	.LD{background-color: grey;}
 	.TD{background-color: grey;}
 	.PD{background-color: grey;}
@@ -156,6 +157,7 @@ require_once(dirname(__FILE__).'/plugins/courses_api.php');
 				echo '<option value="'.$element.'">'.$element.'</option>';
 				}
 							?>
+                           <option value="CANCELLED">CANCELLED</option>
                             </select>
         <input name="input" type="text" id="slot" hidden>
         <input name="input" type="text" id="hiddentype" hidden>
@@ -240,8 +242,9 @@ function hide_type(type){
                 }
 };
 function update(){
- if ($("#slot").val()==""||$("#hiddencourse").val()==""||$("#hiddentype").val()==""||$("#hiddenschedule").val()==""){alert("Fill in all the fields!");}
-	else send_ajax('plugins/ajax.php','req=8&slot='+$("#slot").val()+'&course='+$("#hiddencourse").val()+'&venue=&type='+$("#hiddentype").val()+'&schedule='+$("#hiddenschedule").val(),'ajax_callback1');
+		if($("#hiddencourse").val()==""){$("#hiddentype").val("0");}
+		if($("#hiddencourse").val()=="CANCELLED"){$("#hiddentype").val("4");}
+		send_ajax('plugins/ajax.php','req=8&slot='+$("#slot").val()+'&course='+$("#hiddencourse").val()+'&venue=&type='+$("#hiddentype").val()+'&schedule='+$("#hiddenschedule").val(),'ajax_callback1');
 };
 function ajax_callback1(text,status,state){
 	if(status==200&&state==4){
@@ -251,7 +254,10 @@ function ajax_callback1(text,status,state){
 		if(text=="1"){
 			var slottype="";
 			switch ($("#hiddentype").val()){
-            case "1":
+            case "0":
+				slottype="";
+                break;
+			case "1":
 				slottype="T";
                 break;
 			case "2":
@@ -260,9 +266,12 @@ function ajax_callback1(text,status,state){
 			case "3":
 				slottype="P";
                 break;
+			case "4":
+				slottype="C";
+                break;
                 };
 			generate_message('msgdiv','success','Sucessfully Updated!','msgid','','clear');
-			$("#"+$("#slot").val()).removeClass("L T P");
+			$("#"+$("#slot").val()).removeClass("L T P C");
 			$("#"+$("#slot").val()).addClass(slottype);
 			$("#"+$("#slot").val()).html($("#hiddencourse").val());
 			$("#update").click();

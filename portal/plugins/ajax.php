@@ -86,7 +86,7 @@ if ($req=="8"){//set schedule
 			$type=$_POST['type'];
 			$table=$_POST['schedule'];
 			if(!has_course($course)){$error=1;}
-			if($type==0||$type==1||$type==2||$type==3){}else {$error=1;}
+			if($type==0||$type==1||$type==2||$type==3||$type==4){}else {$error=1;}
 			$eid = askdb( "eid", "sessions", array("tid"=>$tid));
 			$batch = askdb( "batch", "users", array("enrlid"=>$eid));	changedb($table,array("course"=>$course,"venue"=>$venue,"type"=>$type,"updated"=>$eid,"time"=>time()),array("slot"=>$slot,"batch"=>$batch));
 		 echo 1;

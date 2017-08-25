@@ -27,9 +27,7 @@ if (isset($_POST['id'])&&isset($_POST['password'])){
             <div class="col-sm-4">
                 <div class="login well" align="center">
                     <h3>Please login<h3>
-                    <div hidden class="alert alert-dismissable fade in" id="msgdiv">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong id="msg" style="font-size: 100%"></strong>
+                    <div id="msgdiv">
                     </div>
                     <p align=center id=message></p><br/>
                      <form id="login" onsubmit="hash()" action="login.php" method="post">
@@ -54,7 +52,8 @@ if (isset($_POST['id'])&&isset($_POST['password'])){
             <div class="col-sm-4"></div>
         </div>
         
-<script src="js/hash.js"></script> 
+<script src="<?php echo DOMAIN.PATH; ?>/js/hash.js"></script>
+<script src="<?php echo DOMAIN.PATH; ?>/js/msg.js"></script>
 <script>
 function hash(){$("#password").val(sha256_digest($("#password").val()));
                 $("#submit").attr("value","Logging In...");
@@ -62,19 +61,13 @@ function hash(){$("#password").val(sha256_digest($("#password").val()));
 $(document).ready(function(){
         switch (<?php if (isset($_GET['msg'])) echo $_GET['msg']; else echo "0"; ?>){
             case 1:
-                $("#msg").text("Incorrect Credentials!");
-                $("#msgdiv").addClass("alert-danger");
-                $("#msgdiv").show();
+                generate_message('msgdiv','danger','Incorrect Credentials!','msgid','','clear');
                 break;
-            case 2:
-                $("#msg").text("Sucessfully Logged out");
-                $("#msgdiv").addClass("alert-success");
-                $("#msgdiv").show();
+			case 2:
+                generate_message('msgdiv','success','Sucessfully Logged out','msgid','','clear');
                 break;
-            case 3:
-                $("#msg").text("You must login first.");
-                $("#msgdiv").addClass("alert-info");
-                $("#msgdiv").show();
+			case 3:
+                generate_message('msgdiv','info','You must login first.','msgid','','clear');
                 break;
                 }
          });

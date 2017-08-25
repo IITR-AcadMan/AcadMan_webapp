@@ -31,6 +31,7 @@ if($access==0){
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4">
 		<div class="profile well" align="left">
+		<div id="msgdiv"></div>
 			<label for="enrlid">Enrollment No.:</label>
 			<div class="input-group">
 				<input class="form-control" name="enrlid" id="enrlid" type="text" value=<?php echo $eid ?> maxlength="8" readonly>
@@ -103,7 +104,7 @@ if($access==0){
 
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button id="modaldismiss" type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Update</h4>
       </div>
       <div class="modal-body">
@@ -123,6 +124,7 @@ if($access==0){
             </div>
         </div>
 <script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
+<script src="<?php echo DOMAIN.PATH; ?>/js/msg.js"></script>
 <script>
 function edit(data){
 		$("#input").val($("#"+data).val());
@@ -139,6 +141,7 @@ function ajax_callback1(text,status,state){
 		if(text=="1"){
 			$("#"+data).val(input);
             $("#submit").click();
+			generate_message('msgdiv','success','Sucessfully Updated!','msgid','','clear');
             return;
 		}
 		if(text=="0"){

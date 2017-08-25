@@ -244,6 +244,18 @@ else{$response=array("err" => 206);}
 				}
 				else $response=array("err" => 403);
     }
+	if ($req=='15')//logout all
+    {
+    	require_once(ABS_PATH.'/plugins/db.php');
+		require_once(ABS_PATH.'/plugins/session.php');
+    	if (chk_tok_post())
+				{
+	$eid=askdb(array('eid'),'sessions',array('tid'=>$_POST['tid']));
+	forgetdb('sessions',array('eid'=>$eid));
+	$response=array("err" => 200);
+				}
+				else $response=array("err" => 403);
+    }
 }
 $JSON = json_encode($response);
 echo $JSON;

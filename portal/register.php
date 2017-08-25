@@ -36,9 +36,7 @@ header('Location: '.KB.'/welcome.php');}
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <div class="register well" align="center">
-                   <div hidden class="alert alert-dismissable fade in" id="msgdiv">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong id="msg" style="font-size: 100%"></strong>
+                   <div id="msgdiv">
                     </div>
                     <form onsubmit="return validate()" action="register.php" method="POST">
                         <div class="input-group">
@@ -146,6 +144,7 @@ header('Location: '.KB.'/welcome.php');}
     }</style>
 <script src="js/hash.js"></script>
 <script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
+<script src="<?php echo DOMAIN.PATH; ?>/js/msg.js"></script>
 <script>
 function getCookie(cname) {
     var name = cname + "=";
@@ -322,14 +321,10 @@ if (a.length==9){$("#ph").val(a+char); $("#verify").click();}
 $(document).ready(function(){
         switch (<?php if (isset($_GET['msg'])) echo $_GET['msg']; else echo "0"; ?>){
             case 1:
-                $("#msg").text("Something went wrong. Contact Admin for support.");
-                $("#msgdiv").addClass("alert-danger");
-                $("#msgdiv").show();
+				generate_message('msgdiv','danger','Something went wrong. Contact Admin for support.','msgid','','clear');
                 break;
 			case 2:
-                $("#msg").text("Incorrect OTP!");
-                $("#msgdiv").addClass("alert-danger");
-                $("#msgdiv").show();
+				generate_message('msgdiv','danger','Incorrect OTP!','msgid','','clear');
                 break;
                 }
          });

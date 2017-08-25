@@ -68,9 +68,7 @@ $("title").html("AcadMan | Courses");</script>
 					</table>
 			</div>
 		</form>
-		<div style="text-align: center;" hidden class="alert alert-dismissable fade in" id="msgdiv">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong id="msg" style="font-size: 100%"></strong>
+		<div id="msgdiv">
         </div>
         <br/>
 		<div>
@@ -83,6 +81,7 @@ $("title").html("AcadMan | Courses");</script>
 	</div>
 	<div class="col-sm-1"></div>
 </div>
+<script src="<?php echo DOMAIN.PATH; ?>/js/msg.js"></script>
 <script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
 <script>
 	$(document).ready(function(){
@@ -96,24 +95,16 @@ $("title").html("AcadMan | Courses");</script>
                 }
 		switch (<?php echo $msg; ?>){
             case 1:
-                $("#msg").text("File Sucessfully Uploaded!");
-                $("#msgdiv").addClass("alert-success");
-                $("#msgdiv").show();
+				generate_message('msgdiv','success','File Sucessfully Uploaded!','msgid','','clear');
                 break;
 			case 2:
-                $("#msg").text("File too large!");
-                $("#msgdiv").addClass("alert-warning");
-                $("#msgdiv").show();
+				generate_message('msgdiv','warning','File too large!','msgid','','clear');
                 break;
 			case 3:
-                $("#msg").text("Someone else is uploading at this time try again!");
-                $("#msgdiv").addClass("alert-warning");
-                $("#msgdiv").show();
+				generate_message('msgdiv','warning','Someone else is uploading at this time try again!','msgid','','clear');
                 break;
 			case 4:
-                $("#msg").text("Critical Server error! Contact Admin.");
-                $("#msgdiv").addClass("alert-danger");
-                $("#msgdiv").show();
+				generate_message('msgdiv','danger','Critical Server error! Contact Admin.','msgid','','clear');
                 break;
                 }
          });

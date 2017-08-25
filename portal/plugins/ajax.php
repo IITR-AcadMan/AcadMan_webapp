@@ -72,4 +72,25 @@ if ($req=="7"){//logout all other
 	forgetdb('sessions',array('eid'=>$eid));
 	echo 1;
 }
+if ($req=="8"){//set schedule
+	require_once(dirname(__FILE__).'/db.php');
+	require_once(dirname(__FILE__).'/session.php');
+	require_once(dirname(__FILE__).'/courses_api.php');
+	$tid=$_COOKIE["tid"];
+		if (chk_tok())
+		{
+			$error=0;
+			$slot=$_POST['slot'];
+			$course=$_POST['course'];
+			$venue=$_POST['venue'];
+			$type=$_POST['type'];
+			$table=$_POST['schedule'];
+			if(!has_course($course)){$error=1;}
+			if($type==0||$type==1||$type==2||$type==3){}else {$error=1;}
+			$eid = askdb( "eid", "sessions", array("tid"=>$tid));
+			$batch = askdb( "batch", "users", array("enrlid"=>$eid));	changedb($table,array("course"=>$course,"venue"=>$venue,"type"=>$type,"updated"=>$eid,"time"=>time()),array("slot"=>$slot,"batch"=>$batch));
+		 echo 1;
+		}
+		else echo 0;
+}
 ?>

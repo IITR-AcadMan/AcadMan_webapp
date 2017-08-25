@@ -256,6 +256,31 @@ else{$response=array("err" => 206);}
 				}
 				else $response=array("err" => 403);
     }
+	if ($req=='16')//change password
+    {
+	require_once(ABS_PATH.'/plugins/db.php');
+	require_once(ABS_PATH.'/plugins/session.php');
+	if (chk_tok_post()){
+		$eid=askdb(array('eid'),'sessions',array('tid'=>$_POST['tid']));
+		$pwd=askdb(array('pwd'),'users',array('enrlid'=>$eid));
+		if ($pwd==$_POST['pwd'])
+		{
+		changedb('users',array('pwd'=>$_POST['newpwd']),array('enrlid'=>$eid));
+		$response=array("err" => 200);
+		}
+		else $response=array("err" => 401);
+		}
+		else $response=array("err" => 403);
+    }
+	if ($req=='17')//number of devices
+    {
+	require_once(ABS_PATH.'/plugins/db.php');
+	require_once(ABS_PATH.'/plugins/session.php');
+	if (chk_tok_post()){	$count=askdb(array('count(tid)'),'sessions',array('eid'=>askdb(array('eid'),'sessions',array('tid'=>$_POST['tid']))));
+						$response=array("err" => 200,'count'=>$count);
+		}
+		else $response=array("err" => 403);
+    }
 }
 $JSON = json_encode($response);
 echo $JSON;

@@ -24,7 +24,7 @@ get_header();
        	 <div class="col-sm-4" align="center">
         	 <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input class="form-control" name="pwd" id="pwd" type="password" placeholder="Password">
+                            <input class="form-control" name="pwd" id="pwd" type="password" placeholder="Current Password">
 			</div>
                            <br/>
                             <div class="input-group">

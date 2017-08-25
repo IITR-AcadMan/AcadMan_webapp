@@ -7,7 +7,8 @@ if(isset($_GET['sch'])){
 	if($_GET['sch']=='ds'){$schedule='ds';}
 	if($_GET['sch']=='us'){$schedule='us';}
 }
-require_once( 'plugins/schedule_api.php' );
+require_once(dirname(__FILE__).'/plugins/schedule_api.php' );
+require_once(dirname(__FILE__).'/plugins/courses_api.php');
 ?>
 <script>
 	$( "#tab2" ).addClass( "active" );
@@ -44,6 +45,7 @@ require_once( 'plugins/schedule_api.php' );
 		</div>
 	</div>
 	<div class="col-sm-8">
+	<div id="msgdiv"></div>
 	<div id="schedule" class="table-responsive">
 		<style>th,td{text-align: center;}</style>
 		<?php $slot=get_schedule($schedule); ?>
@@ -130,12 +132,52 @@ require_once( 'plugins/schedule_api.php' );
 			</tr>
 		</table>
 	</div>
+<p align="center" style="color: red;"><strong><em>Click to edit.</em></strong></p>
+<button hidden type="text" id="edit" data-toggle="modal" data-target="#editdialog"></button>
+
+<div id="editdialog" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button id="modaldismiss" type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit</h4>
+      </div>
+      <div align="center" class="modal-body">
+  <label onclick="$('#hiddentype').val('2');" class="radio-inline"><input type="radio" name="type">Lecture</label>
+  <label onclick="$('#hiddentype').val('1');" class="radio-inline"><input type="radio" name="type">Tutorial</label>
+  <label onclick="$('#hiddentype').val('3');" class="radio-inline"><input type="radio" name="type">Practical</label>
+       <br/>
+       <br/>
+       <select onChange="$('#hiddencourse').val($(this).val());" class="form-control" name="course" id="course">
+                            <option selected="selected" value="">Choose One</option>
+                            <?php
+			foreach(get_courses() as $element){
+				echo '<option value="'.$element.'">'.$element.'</option>';
+				}
+							?>
+                            </select>
+        <input name="input" type="text" id="slot" hidden>
+        <input name="input" type="text" id="hiddentype" hidden>
+        <input name="input" type="text" id="hiddencourse" hidden>
+        <input name="input" type="text" value="<?php echo $schedule; ?>" id="hiddenschedule" hidden>
+      </div>
+      <div class="modal-footer" align="center">
+       <button onclick="update();" type="button" class="btn btn-default">Update</button>
+        <button type="button" id="update" hidden data-dismiss="modal"></button>
+      </div>
+	  </div>
+  </div>
+</div>
 	</div>
 	<div class="col-sm-1"></div>
 </div>
+<script src="<?php echo DOMAIN.PATH; ?>/js/msg.js"></script>
+<script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
 <script>
-	$("td").dblclick(function() {
-  alert($(this).attr('id'));
+	$("td").click(function() {
+		$("#edit").click();
+		$("#slot").val($(this).attr('id'));
 });
 	$(document).ready(function(){
         switch ('<?php echo $schedule; ?>'){
@@ -197,6 +239,39 @@ function hide_type(type){
                 break;
                 }
 };
+function update(){
+ if ($("#slot").val()==""||$("#hiddencourse").val()==""||$("#hiddentype").val()==""||$("#hiddenschedule").val()==""){alert("Fill in all the fields!");}
+	else send_ajax('plugins/ajax.php','req=8&slot='+$("#slot").val()+'&course='+$("#hiddencourse").val()+'&venue=&type='+$("#hiddentype").val()+'&schedule='+$("#hiddenschedule").val(),'ajax_callback1');
+};
+function ajax_callback1(text,status,state){
+	if(status==200&&state==4){
+		if(text=="0"){
+			alert("Seems like you have been logged out!");
+					 }
+		if(text=="1"){
+			var slottype="";
+			switch ($("#hiddentype").val()){
+            case "1":
+				slottype="T";
+                break;
+			case "2":
+				slottype="L";
+                break;
+			case "3":
+				slottype="P";
+                break;
+                };
+			generate_message('msgdiv','success','Sucessfully Updated!','msgid','','clear');
+			$("#"+$("#slot").val()).removeClass("L T P");
+			$("#"+$("#slot").val()).addClass(slottype);
+			$("#"+$("#slot").val()).html($("#hiddencourse").val());
+			$("#update").click();
+					 }
+	}
+	if(status!=200&&state==4){
+		alert("Seems like you are disconnected from network!");
+	}
+		};
 </script>
 <?php
 get_footer();

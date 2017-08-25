@@ -177,7 +177,6 @@ function chkid(id){
         return;
     } else {
 		send_ajax('plugins/ajax.php',"req=1&id="+id,'ajax_callback1');
-        var xmlhttp = new XMLHttpRequest();
     }
 };
 function ajax_callback1(text,status,state){

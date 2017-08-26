@@ -3,5 +3,6 @@ db/
 db
 */_notes/*
 */_notes
+portal/theme/_notes
 portal/content
 portal/content/*

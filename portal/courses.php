@@ -123,17 +123,43 @@ function generate_card(elementid,text,msgid,action){
          });
 function delete_file (id){
 	currentid=id;
-	if (confirm("Are you sure that you want to delete this file?")){send_ajax('plugins/ajax.php','req=5&file='+id,'ajax_callback1');}
-	};
+	$( "#dialog-confirm" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "Delete": function() {
+		send_ajax('plugins/ajax.php','req=5&file='+id,'ajax_callback1');
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+};
 function ajax_callback1(text,status,state){
 	if(status==200&&state==4){
 		if(text=="0"){
 			$("#"+currentid).click();
-			generate_message('msgdiv','success','Successfully Deleted!','msgid','','clear');
+			$("#msgid").click();
+			$( "#dialog-confirm" ).dialog( "close" );
+    		$( "#dialog" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        "OK": function() {
+			$( this ).dialog( "close" );
+        }
+      }
+    });
 					 }
 		if(text=="1"){
 			$("#"+currentid).click();
 			generate_message('msgdiv','warning','Already Deleted!','msgid','','clear'); 
+			$( "#dialog-confirm" ).dialog( "close" );
 					 }
 		if(text=="2"){
 			alert("Access Denied!");			 
@@ -144,6 +170,12 @@ function ajax_callback1(text,status,state){
 	}
 		};
 </script>
+<div hidden id="dialog-confirm" title="Delete Selected Item?">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Selected item will be permanently deleted and cannot be recovered. Are you sure?</p>
+</div>
+<div hidden id="dialog" title="Successfully Deleted!">
+  <p>Selected file deleted successfully.</p>
+</div>
 <?php
 get_footer();
 ?>

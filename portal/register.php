@@ -9,8 +9,9 @@ require_once('plugins/otp.php');
 require_once('plugins/db.php');
 if (chk_otp($_POST['ph'],$_POST['otp'],'1')){
    rem_otp($_POST['ph'],'1');
-$register=array($_POST['enrlid'],'',strtoupper($_POST['id']),$_POST['pwd'],$_POST['fn'],$_POST['ln'],$_POST['dob'],$_POST['ph'],$_POST['email'],$_POST['q'],$_POST['a']);
+$register=array($_POST['enrlid'],'s1',strtoupper($_POST['id']),$_POST['pwd'],$_POST['fn'],$_POST['ln'],$_POST['dob'],$_POST['ph'],$_POST['email'],$_POST['q'],$_POST['a']);
 telldb("users",array('enrlid','batch','id','pwd','fn','ln','dob','ph','email','q','a'),$register);
+telldb("enrolledfor",array('enrlid'),array($_POST['enrlid']));
 gen_tok(strtoupper($_POST['id']),$_POST['pwd']);
 header('Location: '.KB.'/welcome.php');}
     else {header('Location: '.DOMAIN.PATH.'/register.php?msg=2');}

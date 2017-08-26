@@ -34,8 +34,9 @@ if(isset($_POST['reqid']))
     require_once(ABS_PATH.'/plugins/otp.php');
     if (chk_otp($_POST['ph'],$_POST['otp'],"1")){
    rem_otp($_POST['ph'],"1");
-    $register=array($_POST['enrlid'],strtoupper($_POST['id']),$_POST['pwd'],$_POST['fn'],$_POST['ln'],$_POST['dob'],$_POST['ph'],$_POST['email'],$_POST['q'],$_POST['a']);
-telldb("users",array('enrlid','id','pwd','fn','ln','dob','ph','email','q','a'),$register);
+    $register=array($_POST['enrlid'],'s1',strtoupper($_POST['id']),$_POST['pwd'],$_POST['fn'],$_POST['ln'],$_POST['dob'],$_POST['ph'],$_POST['email'],$_POST['q'],$_POST['a']);
+telldb("users",array('enrlid','batch','id','pwd','fn','ln','dob','ph','email','q','a'),$register);
+telldb("enrolledfor",array('enrlid'),array($_POST['enrlid']));
 	$response=array("err" => 200);
 }
 else{$response=array("err" => 206);}

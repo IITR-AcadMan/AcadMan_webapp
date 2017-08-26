@@ -64,6 +64,7 @@ get_header();
       </div>
       <div id="course" class="panel-collapse collapse">
         <div align="center" class="panel-body">
+        Your Current Batch is "<?php echo askdb("batch","users",array("enrlid"=>askdb("eid","sessions",array("tid"=>$_COOKIE['tid'])))); ?>". To change contact admin.<br/>
         Currently enrolled for:
         <table id="displaycourses">
         <?php foreach(get_courses() as $crs)

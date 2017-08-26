@@ -2,7 +2,8 @@ portal/config.php
 db/
 db
 */_notes/*
-*/_notes
+*/_notes/
 portal/theme/_notes
+portal/kb/_notes
 portal/content
 portal/content/*

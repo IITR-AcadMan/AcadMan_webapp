@@ -48,6 +48,8 @@ $("title").html("AcadMan | Courses");</script>
 		</div>
 	</div>
 	<div class="col-sm-8">
+	<div id="msgdiv">
+    </div>
 		<div class="row">
 			<div class="col-sm-6"><button onClick="$('#file').click();" style="width: 100%;" class="btn btn-success">Upload</button></div>
 			<div class="col-sm-6"><button onClick="$('.dismiss').removeAttr('hidden');" style="width: 100%;" class="btn btn-danger">Delete</button></div>
@@ -69,21 +71,31 @@ $("title").html("AcadMan | Courses");</script>
 					</table>
 			</div>
 		</form>
-		<div id="msgdiv">
-        </div>
         <br/>
-		<div>
-			<?php
+		<div id="coursescard">
+		</div>
+	<script>
+function generate_card(elementid,text,msgid,action){
+	var content='<div style="text-align: center;" class="well alert alert-dismissable fade in"><a href="#" id="'+msgid+'" hidden class="close" data-dismiss="alert" aria-label="close">&times;</a><strong style="font-size: 100%">'+text+'</strong></div>';
+	if (action=="merge"){
+	$('#'+elementid).html($('#'+elementid).html()+content);}
+	else if (action==="clear"){
+	$('#'+elementid).html(content);}
+}
+<?php
 			$card=get_card_meta($crs);
 			foreach($card as $tab)
-			{get_file_card($tab['id'],$tab['fn'],$tab['eid'],$tab['filename'],$tab['size'],$tab['id'],$tab['comment']);}
-			?>
-		</div>
+			{
+			echo "generate_card('coursescard','";	get_file_card($tab['id'],$tab['fn'],$tab['eid'],$tab['filename'],$tab['size'],$tab['id'],$tab['comment']);
+			echo "','".$tab['id']."','merge');";
+			}
+?>
+	</script>
 	</div>
 	<div class="col-sm-1"></div>
 </div>
-<script src="<?php echo DOMAIN.PATH; ?>/js/msg.js"></script>
 <script src="<?php echo DOMAIN.PATH; ?>/js/ajax.js"></script>
+<script src="<?php echo DOMAIN.PATH; ?>/js/msg.js"></script>
 <script>
 	$(document).ready(function(){
         switch ('<?php echo $crs; ?>'){
@@ -110,15 +122,18 @@ $("title").html("AcadMan | Courses");</script>
                 }
          });
 function delete_file (id){
-	send_ajax('plugins/ajax.php','req=5&file='+id,'ajax_callback1');
+	currentid=id;
+	if (confirm("Are you sure that you want to delete this file?")){send_ajax('plugins/ajax.php','req=5&file='+id,'ajax_callback1');}
 	};
 function ajax_callback1(text,status,state){
 	if(status==200&&state==4){
 		if(text=="0"){
-			alert("Deleted Successfully!");				 
+			$("#"+currentid).click();
+			generate_message('msgdiv','success','Successfully Deleted!','msgid','','clear');
 					 }
 		if(text=="1"){
-			alert("Already Deleted!");			 
+			$("#"+currentid).click();
+			generate_message('msgdiv','warning','Already Deleted!','msgid','','clear'); 
 					 }
 		if(text=="2"){
 			alert("Access Denied!");			 

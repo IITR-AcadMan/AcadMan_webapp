@@ -281,6 +281,18 @@ else{$response=array("err" => 206);}
 		}
 		else $response=array("err" => 403);
     }
+	if ($req=='18')//register courses
+    {
+	require_once(ABS_PATH.'/plugins/db.php');
+	require_once(ABS_PATH.'/plugins/session.php');
+	if (chk_tok_post()){	
+			$tid=$_POST["tid"];
+			$course=strtoupper($_POST["course"]);
+			$eid = askdb( "eid", "sessions", array("tid"=>$tid));	changedb("enrolledfor",array("crsid"=>$course),array("enrlid"=>$eid));
+			$response=array("err" => 200);
+		}
+		else $response=array("err" => 403);
+    }
 }
 $JSON = json_encode($response);
 echo $JSON;

@@ -57,22 +57,10 @@ function get_file_card($id,$fn,$eid,$filename,$contentsize,$time,$comment){
 				$timestamp = $time;
 				$dt = new DateTime("now", new DateTimeZone($tz));
 				$dt->setTimestamp($timestamp);
-				echo '<div class="well">';
+				echo '<div>';
 				if($eid==$enrlid){
-					echo '<div hidden class="dismiss" onclick="delete_file(\''.$id.'\');">
-				<button type="button" class="close">&times;</button>
-  				</div>';
+					echo '<div hidden class="dismiss" onclick="delete_file(\\\''.$id.'\\\');"><button type="button" class="close">&times;</button></div>';
 				}
-				echo '<div class="media">
- 				<div class="media-left">
-				<i class="glyphicon glyphicon-file"></i>
-  				</div>
-  				<div class="media-body">
-   				<h4 class="media-heading"><a target="_blank" href="download.php?file='.$id.'">'.$filename.' ('.humanFileSize($contentsize).')</a><br/><small><i>Uploaded on '.$dt->format('l, jS F, Y \a\t h:i:s A').'</i></small></h4>
-   				<p>'.$comment.'</p>
-  				</div>
-				<p align="right">-by <a target="_blank" href="profile.php?id='.$eid.'">'.$fn.'</a></p>
-				</div>
-			</div>';
+				echo '<div class="media"><div class="media-left"><i class="glyphicon glyphicon-file"></i></div><div class="media-body"><h4 class="media-heading"><a target="_blank" href="download.php?file='.$id.'">'.$filename.' ('.humanFileSize($contentsize).')</a><br/><small><i>Uploaded on '.$dt->format('l, jS F, Y \a\t h:i:s A').'</i></small></h4><p>'.$comment.'</p></div><p align="right">-by <a target="_blank" href="profile.php?id='.$eid.'">'.$fn.'</a></p></div></div>';
 }
 ?>

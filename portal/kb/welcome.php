@@ -47,17 +47,17 @@ header('Location: '.DOMAIN.PATH.'/register.php?msg=1');
   </div>
 </nav>    
 
-<div id="section1" class="container-fluid">
+<div id="section1" class="container-fluid" style="min-height: inherit;">
   <h1>Section 1</h1>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
 </div>
-<div id="section2" class="container-fluid">
+<div id="section2" class="container-fluid" style="min-height: inherit;">
   <h1>Section 2</h1>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
 </div>
-<div id="section3" class="container-fluid">
+<div id="section3" class="container-fluid" style="min-height: inherit;">
   <h1>Section 3</h1>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
   <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>

@@ -135,6 +135,7 @@ function ajax_callback2(text,status,state){
 			var arraycourse = csvcourse.split(",");
 			$("#displaycourses").html('');
 			arraycourse.forEach(displayer);
+			$("#courses").val("");
 			generate_message('msgdiv','success','Registered Successfully!','msgid','','clear');
 		}
 	}

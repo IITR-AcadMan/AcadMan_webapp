@@ -133,7 +133,7 @@ require_once(dirname(__FILE__).'/plugins/courses_api.php');
 			</tr>
 		</table>
 	</div>
-<p align="center" style="color: red;"><strong><em>Click to edit.</em></strong></p>
+<p align="center" style="color: red;"><strong><em>Click a slot to edit.</em></strong></p>
 <button hidden type="text" id="edit" data-toggle="modal" data-target="#editdialog"></button>
 
 <div id="editdialog" class="modal fade" role="dialog">

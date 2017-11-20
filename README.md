@@ -1,7 +1,7 @@
 AcadMan(to manage academics)<br/>
 You can upload and manage and share files in different courses.<br/>
 You can edit permanent schedule (Default Schedule), currently running schedule with cancelled classes etc. (Current Schedule), Schedule for next week(Upcoming Schedule).<br/>
-Deployed version at http://acadman.vacau.com.<br/>
+Deployed version at http://iitr.000webhostapp.com.<br/>
 ==================================================<br/>
 To deploy self hosted version refer sample database for database creation.<br/>
 'php.ini' upload setting of free hosting restricts larger file upload. So, upload smaller images to check.<br/>

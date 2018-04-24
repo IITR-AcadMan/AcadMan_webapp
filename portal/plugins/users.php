@@ -6,4 +6,3 @@ function chk_id_avl($username)
 	if ($eid==""){return 1;}
 	else {return 0;}
 }
-?>

@@ -59,4 +59,3 @@ function chk_tok_post()//check token
 			return 0;}
 		}
 }
-?>

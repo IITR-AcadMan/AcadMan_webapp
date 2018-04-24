@@ -5,4 +5,3 @@ function get_header(){
 function get_footer(){
     include dirname(__FILE__).'/footer.php';
 }
-?>

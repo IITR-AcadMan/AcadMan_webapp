@@ -1,3 +1,1 @@
-<?php
-header('Location: portal/index.php');
-?>
+<?phpheader('Location: portal/index.php');

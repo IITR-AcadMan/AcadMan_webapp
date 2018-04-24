@@ -105,4 +105,3 @@ if ($req=="9"){//register course
 		}
 		else echo 0;
 }
-?>

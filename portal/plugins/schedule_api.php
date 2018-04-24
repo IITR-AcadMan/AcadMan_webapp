@@ -27,4 +27,3 @@ function get_schedule($sch){
 		$response=array("course"=>$course,"type"=>$type);
 		return $response;
 }
-?>

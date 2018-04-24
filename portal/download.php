@@ -29,4 +29,3 @@ if(chk_tok())
 	else echo "Bad Request";
 }
 else {header('Location: '.DOMAIN.PATH.'/login.php?msg=3');}
-?>

@@ -297,4 +297,3 @@ else{$response=array("err" => 206);}
 }
 $JSON = json_encode($response);
 echo $JSON;
-?>

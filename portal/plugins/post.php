@@ -17,4 +17,3 @@ echo '           document.getElementById("formpost").click();}</script>
     </body>
 </html>';
 }
-?>

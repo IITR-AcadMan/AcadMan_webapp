@@ -128,4 +128,3 @@ function changedb($table,$data,$params)//update data
 	$row = $conn->query($sql);
 	dbdisconn();
 	};
-	?>

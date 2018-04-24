@@ -28,4 +28,3 @@ function chk_otp($ph,$verify,$type){
     if ($verify==$otp&&$verify!="") return 1;
     else return 0;
 }
-?>

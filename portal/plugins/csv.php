@@ -15,4 +15,3 @@ function generate_csv($array){
 	}
 	return $data;
 }
-?>
